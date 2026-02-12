@@ -1,0 +1,47 @@
+# Import matplotlib for basic plotting
+import matplotlib.pyplot as plt
+
+# Monthly sales data
+Months = ['Jan', 'Feb', 'March']
+Sales = [12000, 15000, 17000]
+
+# Line plot showing sales trend over months
+plt.plot(Months, Sales)
+plt.title('Sales Trend')
+plt.xlabel('Months')
+plt.ylabel('Sales')
+plt.show()
+
+
+# Import seaborn for statistical visualization
+import seaborn as sns
+
+# Histogram to show salary distribution
+sns.histplot([25000, 30000, 45000, 60000, 80000])
+
+
+# Scatter plot to show relationship between age and salary
+sns.scatterplot(
+    x=[23, 30, 40],
+    y=[25000, 45000, 80000]
+)
+
+
+# Box plot to compare salary distribution by department
+sns.boxplot(
+    x=['IT', 'IT', 'IT', 'HR', 'HR', 'HR'],
+    y=[30000, 45000, 80000, 28000, 32000, 35000]
+)
+
+
+# Import pandas to create a DataFrame
+import pandas as pd
+
+# Create sample dataset
+df = pd.DataFrame({
+    'Age': [28, 30, 40],
+    'Salary': [25000, 45000, 80000]
+})
+
+# Heatmap to visualize correlation between variables
+sns.heatmap(df.corr(), annot=True)
