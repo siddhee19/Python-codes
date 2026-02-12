@@ -1,0 +1,99 @@
+# Import required libraries
+import pandas as pd
+import numpy as np
+from scipy import stats
+
+# Load tourism dataset from CSV file
+data = pd.read_csv("archive/India-Tourism-Statistics-2021.csv")
+
+# Remove extra spaces from column names
+data.columns = data.columns.str.strip()
+
+# Display dataset
+print(data)
+
+
+# Basic Statistics 
+
+# Calculate variance for numeric columns
+variance = data.var(numeric_only=True)
+print("Variance:\n", variance)
+
+# Calculate standard deviation for numeric columns
+std_dev = data.std(numeric_only=True)
+print("\nStandard Deviation:\n", std_dev)
+
+
+# Chi-square Test 
+
+# Create a contingency table using Circle and binned domestic tourism data
+table = pd.crosstab(
+    data["Circle"],
+    pd.cut(data["Domestic-2019-20"], bins=5)
+)
+
+# Perform chi-square test
+chi2, p, dof, expected = stats.chi2_contingency(table)
+
+print("\nChi-Square Test")
+print("Chi-square value:", chi2)
+print("p-value:", p)
+print("Degrees of freedom:", dof)
+
+
+# T-Test 
+
+# Compare domestic vs foreign tourism using independent t-test
+t_stat, p = stats.ttest_ind(
+    data["Domestic-2019-20"],
+    data["Foreign-2019-20"],
+    nan_policy='omit'
+)
+
+print("\nT-Test")
+print("T-statistic:", t_stat)
+print("p-value:", p)
+
+
+# Z-Test 
+
+# Prepare domestic tourism data (remove missing values)
+col = data["Domestic-2019-20"].dropna()
+
+mean = col.mean()
+std = col.std()
+n = len(col)
+
+# Assume population mean = sample mean (demo purpose)
+mu = col.mean()
+
+# Calculate Z-score
+z = (mean - mu) / (std / np.sqrt(n))
+
+print("\nZ-Test")
+print("Z-score:", z)
+
+
+# ANOVA Test 
+
+# Compare tourism data across two years
+f_stat, p = stats.f_oneway(
+    data["Domestic-2019-20"],
+    data["Domestic-2020-21"]
+)
+
+print("\nANOVA Test")
+print("F-statistic:", f_stat)
+print("p-value:", p)
+
+
+# F-Test 
+# Calculate variance for both years
+var1 = np.var(data["Domestic-2019-20"].dropna(), ddof=1)
+var2 = np.var(data["Domestic-2020-21"].dropna(), ddof=1)
+
+# Compute F-score
+f_score = var1 / var2
+
+print("\nF-Test")
+print("F-score:", f_score)
