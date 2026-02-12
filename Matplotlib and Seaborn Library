@@ -1,0 +1,34 @@
+# Histogram using matplotlib library
+import matplotlib.pyplot as plt
+
+# Sample data
+marks = [45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 60, 70, 80]
+
+# Create histogram
+plt.hist(marks, bins=5, color='skyblue', edgecolor='black')
+
+# Add labels and title
+plt.title('Marks Distribution')
+plt.xlabel('Marks')
+plt.ylabel('Number of Students')
+
+# Show plot
+plt.show()
+
+# Histogram using seaborn library
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Sample data
+marks = [45, 50, 55, 60, 65, 40, 75, 80, 85, 50, 95, 60, 65, 85]
+
+# Create histogram
+sns.histplot(marks, bins=5, color='lightgreen', edgecolor='black')
+
+# Add labels and title
+plt.title('Student Score Frequency')
+plt.xlabel('Score Range')
+plt.ylabel('Student Count')
+
+# Show plot
+plt.show()
